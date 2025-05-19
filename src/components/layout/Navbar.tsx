@@ -7,7 +7,7 @@ function Navbar() {
 
   if (currentPath === "/") {
     return (
-      <header className="w-full p-5 flex bg-green-700 shadow-md fixed top-0 left-0 z-50">
+      <header className="w-full p-5 flex bg-green-700 shadow-md top-0 left-0 z-50">
         <Link
           to="/about"
           className="text-white hover:text-green-300 hover:scale-110 transition duration-300 text-lg ml-auto mr-10"
@@ -18,9 +18,9 @@ function Navbar() {
     );
   }
 
-  if (currentPath === "/about") {
+  if (["/about", "/login", "/register"].includes(currentPath)) {
     return (
-      <header className="w-full p-0 flex fixed top-0 left-0 z-50">
+      <header className="w-full p-0 flex top-0 left-0 z-50">
         <Link
           to="/"
           className="text-white hover:text-green-300 hover:scale-110 transition duration-300 text-lg ml-auto mr-10"

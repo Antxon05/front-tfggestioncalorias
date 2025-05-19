@@ -1,5 +1,12 @@
+import Navbar from "../components/layout/Navbar";
+
 function Register() {
-  return <h1>Registrarse</h1>;
+  return (
+    <>
+      <Navbar />
+      <h1>Registrarse</h1>
+    </>
+  );
 }
 
 export default Register;

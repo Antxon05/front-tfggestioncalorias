@@ -10,10 +10,10 @@ function Home() {
   return (
     <>
       <Navbar />
-      <div className="h-screen flex justify-evenly items-center p-4 text-green-700 font-poppins ">
+      <div className="min-h-screen flex flex-wrap justify-evenly items-center p-4 text-green-700 font-poppins ">
         <div>
           <motion.h1
-            className="text-7xl font-bold mb-25 flex gap-1"
+            className="flex text-4xl font-bold md:mb-25 md:text-7xl mt-10 gap-1"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: [1, 1.05, 1] }}
             transition={{

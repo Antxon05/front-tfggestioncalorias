@@ -7,15 +7,15 @@ function AboutUs() {
     <>
       <Navbar />
       <motion.div
-        className="flex flex-col items-center justify-center h-screen pt-28"
+        className="min-h-screen flex flex-col items-center justify-center mt-5 px-4"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeIn" }}
       >
-        <h1 className="text-4xl font-bold text-green-700">
+        <h1 className="text-3xl font-bold text-green-700 sm:text-4xl text-center mb-5">
           ¿Que es NutriDiary?
         </h1>
-        <div className="flex m-30">
+        <div className="flex flex-col flex-wrap m-10 md:flex-row md:flex-nowrap">
           <div className="m-10">
             <H3>¿Que és?</H3>
             <p>

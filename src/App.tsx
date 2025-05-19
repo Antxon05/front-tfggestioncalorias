@@ -3,10 +3,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AboutUs from "./pages/AboutUs";
+import "flyonui/flyonui";
 
 function App() {
   return (
-    <div className="h-screen bg-gradient-to-b from-green-100 via-green-200 to-green-300 font-poppins">
+    <div className="min-h-screen bg-gradient-to-b from-green-100 via-green-200 to-green-300 font-poppins">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
