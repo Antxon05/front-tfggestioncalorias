@@ -7,7 +7,7 @@ function AboutUs() {
     <>
       <Navbar />
       <motion.div
-        className="min-h-screen flex flex-col items-center justify-center mt-5 px-4"
+        className="min-h-screen flex flex-col items-center mt-5 px-4"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeIn" }}
