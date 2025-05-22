@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../ui/Button";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import login from "../../services/AuthService";
+import Input from "../ui/Input";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -13,26 +15,18 @@ function LoginForm() {
     e.preventDefault();
     setError("");
 
+    if (!email || !password) {
+      setError("Por favor, rellena todos los campos.");
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Correo o contraseña incorrectos");
-      }
-
-      const data = await response.json();
+      const data = await login(email, password);
       console.log("Respuesta del servidor: ", data);
-
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } catch (error: any) {
-      setError(error.mesage || "Error al iniciar sesión");
+      setError(error.message || "Error al iniciar sesión");
     }
   };
 
@@ -40,7 +34,7 @@ function LoginForm() {
     <div className="flex justify-center px-4 mt-10">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-md w-full max-w-md"
+        className="bg-white p-6 rounded-xl shadow-md w-full max-w-md mb-10"
       >
         <h2 className="text-2xl font-bold mb-6 text-green-700 text-center">
           Iniciar Sesión
@@ -48,27 +42,22 @@ function LoginForm() {
 
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-5">
-            <input
+            <Input
               type="email"
+              name="email"
               placeholder="Correo electrónico"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`flex-1 px-4 py-2 border ${
-                error ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:outline-none focus:ring-2 ${
-                error ? "focus:ring-red-400" : "focus:ring-green-400"
-              }`}
+              hasError={!!error}
             />
-            <input
+            <Input
               type="password"
+              name="password"
               placeholder="Contraseña"
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={`flex-1 px-4 py-2 border ${
-                error ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:outline-none focus:ring-2 ${
-                error ? "focus:ring-red-400" : "focus:ring-green-400"
-              }`}
+              hasError={!!error}
             />
           </div>
 
@@ -80,6 +69,12 @@ function LoginForm() {
               {error}
             </p>
           )}
+          <Link
+            to="/register"
+            className="mt-3 text-center inline-block text-green-600 underline transition-all duration-300 hover:text-green-800 hover:scale-105"
+          >
+            ¿No tienes una cuenta creada?
+          </Link>
         </div>
       </form>
     </div>
