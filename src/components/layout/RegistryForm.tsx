@@ -21,6 +21,11 @@ function RegistryForm() {
       return;
     }
 
+    if (password.length < 8 || confirmPassword.length < 8) {
+      setError("La contraseña debe tener al menos 8 caracteres.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("No son iguales las contraseñas.");
       return;
@@ -29,7 +34,7 @@ function RegistryForm() {
     try {
       const formData = { name, email, password };
       sessionStorage.setItem("parteRegistro", JSON.stringify(formData));
-      navigate("/create-profile");
+      navigate("/register/create-profile");
     } catch (error: any) {
       setError(error.message || "Error al registro de datos");
     }

@@ -19,9 +19,15 @@ function Navbar() {
   }
 
   if (
-    ["/about", "/login", "/register", "/dashboard", "/create-profile"].includes(
-      currentPath
-    )
+    [
+      "/about",
+      "/login",
+      "/register",
+      "/dashboard",
+      "/register/create-profile",
+      ,
+      "/register/create-profile/target-calories",
+    ].includes(currentPath)
   ) {
     return (
       <header className="w-full p-0 flex top-0 left-0 z-50">

@@ -3,10 +3,15 @@ import Button from "../components/ui/Button";
 import Navbar from "../components/layout/Navbar";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const heading = "bienvenid@";
 
 function Home() {
+  useEffect(() => {
+    sessionStorage.clear();
+  });
+
   return (
     <>
       <Navbar />
@@ -33,6 +38,7 @@ function Home() {
             ))}
           </motion.h1>
         </div>
+
         <div className="items-center flex flex-col justify-center">
           <img src={logoremove} alt="" className="w-100" />
 

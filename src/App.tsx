@@ -6,6 +6,7 @@ import AboutUs from "./pages/AboutUs";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./routing/privateRoute";
 import CreateProfile from "./pages/CreateProfile";
+import TargetCalories from "./pages/TargetCalories";
 
 function App() {
   return (
@@ -25,10 +26,22 @@ function App() {
             }
           />
           <Route
-            path="/create-profile"
+            path="/register/create-profile"
             element={
-              <PrivateRoute requirePartialRegistry={true}>
+              <PrivateRoute requireToken={false} requirePartialRegistry={true}>
                 <CreateProfile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/register/create-profile/target-calories"
+            element={
+              <PrivateRoute
+                requireToken={false}
+                requirePartialRegistry={false}
+                requireRegistryCompleted={true}
+              >
+                <TargetCalories />
               </PrivateRoute>
             }
           />
