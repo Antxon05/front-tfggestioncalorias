@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function RegistryForm() {
   const [name, setName] = useState("");
@@ -11,6 +11,18 @@ function RegistryForm() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+
+  //cargamos los datos de parteRegistro si hay
+  useEffect(() => {
+    const datosGuardados = sessionStorage.getItem("parteRegistro");
+    if (datosGuardados) {
+      const { name, email, password } = JSON.parse(datosGuardados);
+      setName(name || "");
+      setEmail(email || "");
+      setPassword(password || "");
+      setConfirmPassword(password || "");
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

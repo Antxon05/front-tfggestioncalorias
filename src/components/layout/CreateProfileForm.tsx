@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { useNavigate } from "react-router-dom";
+import register from "../../services/RegisterService";
 
 function CreateProfileForm() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,14 @@ function CreateProfileForm() {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  //esta parte sirve para cargar los datos de formPerfil si hay
+  useEffect(() => {
+    const datosGuardados = sessionStorage.getItem("formPerfil");
+    if (datosGuardados) {
+      setFormData(JSON.parse(datosGuardados));
+    }
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -59,23 +68,20 @@ function CreateProfileForm() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(usuarioCompleto),
-      });
+      const response = await register(usuarioCompleto);
 
-      if (!response.ok) {
-        throw new Error("Ya existe un usuario con este correo.");
-      }
+      sessionStorage.setItem("token", response.token);
       sessionStorage.removeItem("parteRegistro");
       sessionStorage.setItem("registroCompletado", "true");
       navigate("/register/create-profile/target-calories");
     } catch (error: any) {
-      setError(error.message || "Error al guardar los datos");
+      setError(error.message || "Error al crear el usuario");
     }
+  };
+
+  const handleBack = () => {
+    sessionStorage.setItem("formPerfil", JSON.stringify(formData));
+    navigate("/register");
   };
 
   return (
@@ -161,6 +167,13 @@ function CreateProfileForm() {
         </div>
 
         <div className="flex justify-center">
+          <Button
+            type="button"
+            className="bg-yellow-300 hover:bg-yellow-400"
+            onClick={handleBack}
+          >
+            Volver
+          </Button>
           <Button type="submit">Crear Perfil</Button>
         </div>
         {error && (
