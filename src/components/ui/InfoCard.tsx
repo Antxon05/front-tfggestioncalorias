@@ -10,7 +10,7 @@ function InfoCard({ title, goal, consumed, description }: Props) {
 
   return (
     <>
-      <div className="bg-white p-4 text-center rounded-xl w-full max-w-sm m-auto shadow-md text-lg">
+      <div className="bg-white p-4 text-center rounded-xl w-full max-w-lg m-auto shadow-md text-lg">
         <p className="font-bold text-green-700">{title}</p>
         <p className="text-xs">{description}</p>
         <p>

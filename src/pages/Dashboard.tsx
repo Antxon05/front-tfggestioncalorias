@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import fetchUserData from "../services/UserService";
 import InfoCard from "../components/ui/InfoCard";
-import RegisteredFoodTable from "../components/layout/RegisteredFoodTable";
+import RegisteredFoodTable from "../components/layout/FoodRecordTable";
 
 function Dashboard() {
   const [userData, setUserData] = useState<any>(null);

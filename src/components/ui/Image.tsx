@@ -7,7 +7,7 @@ function Image({ src, alt }: Props) {
   return (
     <img
       src={src}
-      className="mr-2 cursor-pointer w-7 hover:w-8 transition-all duration-200"
+      className="m-2 cursor-pointer w-7 hover:scale-110 transition-all duration-200"
       alt={alt}
     />
   );

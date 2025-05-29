@@ -8,6 +8,7 @@ type Props = {
   autoComplete?: string;
   hasError?: boolean;
   dotted?: boolean;
+  className?: string;
 };
 
 function Input({
@@ -20,6 +21,7 @@ function Input({
   autoComplete,
   hasError = false,
   dotted = false,
+  className,
 }: Props) {
   return (
     <div className="flex flex-col">
@@ -39,7 +41,7 @@ function Input({
             : "border-gray-300"
         } rounded-lg focus:outline-none focus:ring-2 ${
           hasError ? "focus:ring-red-400" : "focus:ring-green-400"
-        }`}
+        } ${className ?? ""}`}
       />
     </div>
   );
