@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
-import fetchUserData from "../services/userService";
+import fetchUserData from "../services/UserService";
+import InfoCard from "../components/ui/InfoCard";
+import RegisteredFoodTable from "../components/layout/RegisteredFoodTable";
 
 function Dashboard() {
   const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchUserData()
@@ -24,10 +25,38 @@ function Dashboard() {
   return (
     <>
       <Navbar />
-      <div>
-        <h1>Bienvenido, {userData.name}</h1>
-        <p>Email: {userData.email}</p>
-        <p>Altura (cm): {userData.height}</p>
+      <div className="max-w-6xl mx-auto px-4">
+        <InfoCard
+          title="Calorías Restantes"
+          description="(kcal objetivo - kcal consumidas)"
+          goal={2000}
+          consumed={1300}
+        />
+
+        <div className="flex flex-col lg:flex-row justify-center items-start gap-10 mt-10">
+          <RegisteredFoodTable />
+
+          <div className="flex flex-col gap-4 w-full lg:w-1/4">
+            <InfoCard
+              title="Proteínas Restantes"
+              description="(prote. objetivo - prote. consumidas)"
+              goal={150}
+              consumed={90}
+            />
+            <InfoCard
+              title="Carbohidratos Restantes"
+              description="(carbs. objetivo - carbs. consumidas)"
+              goal={250}
+              consumed={180}
+            />
+            <InfoCard
+              title="Grasas Restantes"
+              description="(grasas objetivo - grasas consumidas)"
+              goal={70}
+              consumed={30}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

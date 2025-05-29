@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./routing/privateRoute";
 import CreateProfile from "./pages/CreateProfile";
 import TargetCalories from "./pages/TargetCalories";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -22,6 +23,14 @@ function App() {
             element={
               <PrivateRoute requireToken={true}>
                 <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/edit-profile"
+            element={
+              <PrivateRoute requireToken={true}>
+                <EditProfile />
               </PrivateRoute>
             }
           />
