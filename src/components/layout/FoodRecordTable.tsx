@@ -1,14 +1,22 @@
 // src/components/ui/RegisteredFoodTable.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "../ui/Image";
 import Button from "../ui/Button";
 import papelera from "../../assets/papelera-de-reciclaje.png";
-import editar from "../../assets/boton-editar.png";
-import ModalAddFood from "./ModalAddFood";
+import ModalAddFood from "../../pages/ModalAddFood";
 
 const tabs = ["Desayuno", "Comida", "Aperitivo", "Cena"];
+type Tab = (typeof tabs)[number];
 
-type Food = {
+const dayMomentMap: Record<Tab, "DESAYUNO" | "COMIDA" | "APERITIVO" | "CENA"> =
+  {
+    Desayuno: "DESAYUNO",
+    Comida: "COMIDA",
+    Aperitivo: "APERITIVO",
+    Cena: "CENA",
+  };
+
+export type Food = {
   id: number;
   name: string;
   calories: number;
@@ -18,10 +26,45 @@ type Food = {
 function RegisteredFoodTable() {
   const [activeTab, setActiveTab] = useState("Desayuno");
   const [showModal, setShowModal] = useState(false);
-  const [foods, setFoods] = useState<Food[]>([
-    { id: 1, name: "Plátano", calories: 105, weight: 300 },
-    { id: 2, name: "Manzana", calories: 95, weight: 200 },
-  ]);
+  const [foods, setFoods] = useState<Food[]>([]);
+
+  useEffect(() => {
+    fetchFoodRecords(activeTab);
+  }, [activeTab]);
+
+  const fetchFoodRecords = async (tab: string) => {
+    const token = localStorage.getItem("token");
+    const dayMoment = dayMomentMap[tab];
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/foodrecord?dayMoment=${dayMoment}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener los alimentos");
+      }
+
+      const data = await response.json();
+
+      const mappedFoods: Food[] = data.map((item: any) => ({
+        id: item.id,
+        name: item.foodName,
+        calories: item.calories,
+        weight: item.weightgm,
+      }));
+
+      setFoods(mappedFoods);
+    } catch (error) {
+      console.error("Error al cargar alimentos:", error);
+    }
+  };
 
   const handleAddClick = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -38,9 +81,13 @@ function RegisteredFoodTable() {
     setActiveTab(tab);
   };
 
+  const handleFoodAdded = () => {
+    fetchFoodRecords(activeTab);
+  };
+
   return (
     <>
-      <div className="w-full lg:w-3/4">
+      <div className="w-full">
         <div className="flex">
           {tabs.map((tab) => (
             <button
@@ -90,7 +137,13 @@ function RegisteredFoodTable() {
         </div>
       </div>
 
-      {showModal && <ModalAddFood onClose={() => setShowModal(false)} />}
+      {showModal && (
+        <ModalAddFood
+          onClose={() => setShowModal(false)}
+          onAdded={handleFoodAdded}
+          dayMoment={dayMomentMap[activeTab]}
+        />
+      )}
     </>
   );
 }

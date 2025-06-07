@@ -98,6 +98,7 @@ function CreateProfileForm() {
           <Input
             type="number"
             name="edad"
+            min="14"
             placeholder="Introduce tu edad"
             value={formData.edad}
             onChange={handleChange}
@@ -119,6 +120,7 @@ function CreateProfileForm() {
           <Input
             type="number"
             name="peso"
+            min="0"
             placeholder="Introduce el peso en kg"
             value={formData.peso}
             onChange={handleChange}
@@ -127,6 +129,7 @@ function CreateProfileForm() {
           <Input
             type="number"
             name="altura"
+            min="0"
             placeholder="Introduce la altura en cm"
             value={formData.altura}
             onChange={handleChange}

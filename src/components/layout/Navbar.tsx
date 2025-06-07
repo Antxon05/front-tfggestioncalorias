@@ -1,6 +1,7 @@
 import logoremove from "../../assets/logo-nutridiary-removebg-preview.png";
 import perfilIcon from "../../assets/editar.png";
 import { Link, useLocation } from "react-router-dom";
+import Button from "../ui/Button";
 
 function Navbar() {
   const location = useLocation();
@@ -43,9 +44,11 @@ function Navbar() {
 
   if (currentPath == "/dashboard") {
     return (
-      <header className="flex justify-between items-center w-full p-0 top-0 left-0 z-50">
-        <Link to="/" className="hover:scale-110 transition duration-300 ml-10">
-          <img src={logoremove} alt="" className="w-40" />
+      <header className="flex justify-end pt-5 items-center w-full p-0 top-0 left-0 z-50">
+        <Link to="/" className="hover:scale-110 transition duration-300 mr-10">
+          <button className="cursor-pointer bg-green-700 p-4 text-white font-semibold rounded-xl">
+            Cerrar Sesión
+          </button>
         </Link>
         <Link
           to="/edit-profile"

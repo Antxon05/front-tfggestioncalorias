@@ -10,6 +10,7 @@ const heading = "bienvenid@";
 function Home() {
   useEffect(() => {
     sessionStorage.clear();
+    localStorage.clear();
   });
 
   return (

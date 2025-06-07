@@ -25,7 +25,7 @@ function Dashboard() {
   return (
     <>
       <Navbar />
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="mt-30 w-[90%] mx-auto px-4">
         <InfoCard
           title="Calorías Restantes"
           description="(kcal objetivo - kcal consumidas)"
@@ -33,10 +33,12 @@ function Dashboard() {
           consumed={1300}
         />
 
-        <div className="flex flex-col lg:flex-row justify-center items-start gap-10 mt-10">
-          <RegisteredFoodTable />
+        <div className="flex flex-col lg:flex-row gap-10 mt-10">
+          <div className="w-full lg:w-3/4">
+            <RegisteredFoodTable />
+          </div>
 
-          <div className="flex flex-col gap-4 w-full lg:w-1/4">
+          <div className="w-full lg:w-1/5 flex flex-col gap-4">
             <InfoCard
               title="Proteínas Restantes"
               description="(prote. objetivo - prote. consumidas)"

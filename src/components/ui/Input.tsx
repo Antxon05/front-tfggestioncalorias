@@ -1,4 +1,4 @@
-type Props = {
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   type: string;
   value: string;
@@ -22,11 +22,13 @@ function Input({
   hasError = false,
   dotted = false,
   className,
+  ...rest
 }: Props) {
   return (
     <div className="flex flex-col">
       {label && <label className="mb-1 font-semibold">{label}</label>}
       <input
+        {...rest}
         type={type}
         name={name}
         value={value}

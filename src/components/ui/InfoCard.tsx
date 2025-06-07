@@ -14,8 +14,9 @@ function InfoCard({ title, goal, consumed, description }: Props) {
         <p className="font-bold text-green-700">{title}</p>
         <p className="text-xs">{description}</p>
         <p>
-          {goal} - {consumed} ={" "}
-          <span className="font-semibold">{remaining}</span>
+          <span className="text-orange-400 font-semibold">{goal} </span> -{" "}
+          {consumed} ={" "}
+          <span className="font-semibold text-green-700">{remaining}</span>
         </p>
       </div>
     </>
