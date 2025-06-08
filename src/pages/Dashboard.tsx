@@ -3,6 +3,7 @@ import Navbar from "../components/layout/Navbar";
 import fetchUserData from "../services/UserService";
 import InfoCard from "../components/ui/InfoCard";
 import RegisteredFoodTable from "../components/layout/FoodRecordTable";
+import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
 
 function Dashboard() {
   const [dailySummary, setDailySummary] = useState<any>(null);
@@ -43,42 +44,44 @@ function Dashboard() {
 
   return (
     <>
-      <Navbar />
-      <div className="mt-30 w-[90%] mx-auto px-4">
-        <InfoCard
-          title="Calorías Restantes"
-          description="(kcal objetivo - kcal consumidas)"
-          goal={dailySummary.goalCalories}
-          consumed={dailySummary.consumedCalories}
-        />
+      <AnimatedPageWrapper>
+        <Navbar />
+        <div className="mt-30 w-[90%] mx-auto px-4">
+          <InfoCard
+            title="Calorías Restantes"
+            description="(kcal objetivo - kcal consumidas)"
+            goal={dailySummary.goalCalories}
+            consumed={dailySummary.consumedCalories}
+          />
 
-        <div className="flex flex-col lg:flex-row gap-10 mt-10">
-          <div className="w-full lg:w-3/4">
-            <RegisteredFoodTable onReload={fetchDailySummary} />
-          </div>
+          <div className="flex flex-col lg:flex-row gap-10 mt-10">
+            <div className="w-full lg:w-3/4">
+              <RegisteredFoodTable onReload={fetchDailySummary} />
+            </div>
 
-          <div className="w-full lg:w-1/5 flex flex-col gap-4">
-            <InfoCard
-              title="Proteínas Restantes"
-              description="(prote. objetivo - prote. consumidas)"
-              goal={dailySummary.goalProtein}
-              consumed={dailySummary.consumedProtein}
-            />
-            <InfoCard
-              title="Carbohidratos Restantes"
-              description="(carbs. objetivo - carbs. consumidas)"
-              goal={dailySummary.goalCarbohydrates}
-              consumed={dailySummary.consumedCarbohydrates}
-            />
-            <InfoCard
-              title="Grasas Restantes"
-              description="(grasas objetivo - grasas consumidas)"
-              goal={dailySummary.goalFats}
-              consumed={dailySummary.consumedFats}
-            />
+            <div className="w-full lg:w-1/5 flex flex-col gap-4">
+              <InfoCard
+                title="Proteínas Restantes"
+                description="(prote. objetivo - prote. consumidas)"
+                goal={dailySummary.goalProtein}
+                consumed={dailySummary.consumedProtein}
+              />
+              <InfoCard
+                title="Carbohidratos Restantes"
+                description="(carbs. objetivo - carbs. consumidas)"
+                goal={dailySummary.goalCarbohydrates}
+                consumed={dailySummary.consumedCarbohydrates}
+              />
+              <InfoCard
+                title="Grasas Restantes"
+                description="(grasas objetivo - grasas consumidas)"
+                goal={dailySummary.goalFats}
+                consumed={dailySummary.consumedFats}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </AnimatedPageWrapper>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
 import Navbar from "../components/layout/Navbar";
 import RegistryForm from "../components/layout/RegistryForm";
 
@@ -5,7 +6,9 @@ function Register() {
   return (
     <>
       <Navbar />
-      <RegistryForm></RegistryForm>
+      <AnimatedPageWrapper>
+        <RegistryForm></RegistryForm>
+      </AnimatedPageWrapper>
     </>
   );
 }

@@ -109,7 +109,7 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
       setFoods((prevFoods) => prevFoods.filter((food) => food.id !== id));
       setError(null);
     } catch (err: any) {
-      setError(err.message);
+      console.log(err);
     }
   };
 
@@ -207,7 +207,6 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
         </div>
       </form>
 
-      {error && <p className="text-red-600 font-medium mt-2">{error}</p>}
       <div className="flex justify-end">
         <button onClick={refrescList}>
           <Image src={recharge} alt="" />

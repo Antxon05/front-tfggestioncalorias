@@ -35,6 +35,10 @@ function CreateProfileForm() {
     e.preventDefault();
     setError("");
 
+    const edadNum = parseInt(formData.edad);
+    const pesoNum = parseFloat(formData.peso);
+    const alturaNum = parseFloat(formData.altura);
+
     if (
       !formData.edad ||
       !formData.genero ||
@@ -44,6 +48,21 @@ function CreateProfileForm() {
       !formData.objetivo
     ) {
       setError("Por favor rellena todos los campos.");
+      return;
+    }
+
+    if (
+      isNaN(edadNum) ||
+      edadNum < 14 ||
+      edadNum > 120 ||
+      isNaN(pesoNum) ||
+      pesoNum < 30 ||
+      pesoNum > 300 ||
+      isNaN(alturaNum) ||
+      alturaNum < 100 ||
+      alturaNum > 250
+    ) {
+      setError("Introduce valores válidos");
       return;
     }
 
