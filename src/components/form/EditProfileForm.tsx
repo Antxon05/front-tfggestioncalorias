@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
+import { toast } from "react-toastify";
 
 function EditProfileForm() {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ function EditProfileForm() {
 
   useEffect(() => {
     fetchUserInfo();
-  });
+  }, []);
 
   const fetchUserInfo = async () => {
     const token = localStorage.getItem("token");
@@ -69,6 +70,33 @@ function EditProfileForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const updateUserInfo = async () => {
+    const token = localStorage.getItem("token");
+
+    const payload = {
+      ...formData,
+      age: parseInt(formData.age),
+      height: parseInt(formData.height),
+      weight: parseFloat(formData.weight),
+    };
+
+    const response = await fetch("http://localhost:8080/api/user/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || "Error al actualizar el usuario");
+    }
+
+    return await response.text();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -88,8 +116,8 @@ function EditProfileForm() {
     }
 
     try {
-      // await updateUserInfo({ ...formData, age: edadNum, height: alturaNum, weight: pesoNum });
-      navigate("/dashboard"); // o a donde quieras redirigir
+      await updateUserInfo();
+      toast.success("Se ha actualizado correctamente el perfil");
     } catch (err: any) {
       setError(err.message || "Error al actualizar el perfil");
     }
