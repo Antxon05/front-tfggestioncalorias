@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
@@ -17,7 +17,50 @@ function EditProfileForm() {
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchUserInfo();
+  });
+
+  const fetchUserInfo = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/user`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos del usuario");
+      }
+
+      const data = await response.json();
+
+      setFormData({
+        ...data,
+        age: data.age.toString(),
+        height: data.height.toString(),
+        weight: data.weight.toString(),
+        genre: data.genre || "",
+        goal: data.goal || "",
+        phisicalActivity: data.phisicalActivity || "",
+      });
+    } catch (error) {
+      console.error("Error al cargar datos del usuario:", error);
+      setError("No se pudieron cargar los datos del usuario.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <p className="text-center">Cargando datos...</p>;
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
