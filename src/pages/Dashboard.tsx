@@ -5,19 +5,38 @@ import InfoCard from "../components/ui/InfoCard";
 import RegisteredFoodTable from "../components/layout/FoodRecordTable";
 
 function Dashboard() {
-  const [userData, setUserData] = useState<any>(null);
+  const [dailySummary, setDailySummary] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchDailySummary = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/dailysummary/today`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener los alimentos");
+      }
+
+      const data = await response.json();
+      setDailySummary(data);
+    } catch (error) {
+      console.error("Error al cargar alimentos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetchUserData()
-      .then((data) => {
-        setUserData(data);
-        setLoading(false);
-      })
-      .catch(() => {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-      });
+    fetchDailySummary();
   }, []);
 
   if (loading) return <p>Cargando datos...</p>;
@@ -29,33 +48,33 @@ function Dashboard() {
         <InfoCard
           title="Calorías Restantes"
           description="(kcal objetivo - kcal consumidas)"
-          goal={2000}
-          consumed={1300}
+          goal={dailySummary.goalCalories}
+          consumed={dailySummary.consumedCalories}
         />
 
         <div className="flex flex-col lg:flex-row gap-10 mt-10">
           <div className="w-full lg:w-3/4">
-            <RegisteredFoodTable />
+            <RegisteredFoodTable onReload={fetchDailySummary} />
           </div>
 
           <div className="w-full lg:w-1/5 flex flex-col gap-4">
             <InfoCard
               title="Proteínas Restantes"
               description="(prote. objetivo - prote. consumidas)"
-              goal={150}
-              consumed={90}
+              goal={dailySummary.goalProtein}
+              consumed={dailySummary.consumedProtein}
             />
             <InfoCard
               title="Carbohidratos Restantes"
               description="(carbs. objetivo - carbs. consumidas)"
-              goal={250}
-              consumed={180}
+              goal={dailySummary.goalCarbohydrates}
+              consumed={dailySummary.consumedCarbohydrates}
             />
             <InfoCard
               title="Grasas Restantes"
               description="(grasas objetivo - grasas consumidas)"
-              goal={70}
-              consumed={30}
+              goal={dailySummary.goalFats}
+              consumed={dailySummary.consumedFats}
             />
           </div>
         </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "../ui/Image";
 import Button from "../ui/Button";
 import papelera from "../../assets/papelera-de-reciclaje.png";
+import recharge from "../../assets/cargando-flechas.png";
 import ModalAddFood from "../../pages/ModalAddFood";
 
 const tabs = ["Desayuno", "Comida", "Aperitivo", "Cena"];
@@ -23,7 +24,11 @@ export type Food = {
   weight: number;
 };
 
-function RegisteredFoodTable() {
+type Props = {
+  onReload: () => void;
+};
+
+function RegisteredFoodTable({ onReload }: Props) {
   const [activeTab, setActiveTab] = useState("Desayuno");
   const [showModal, setShowModal] = useState(false);
   const [foods, setFoods] = useState<Food[]>([]);
@@ -68,12 +73,28 @@ function RegisteredFoodTable() {
 
   const handleAddClick = () => setShowModal(true);
 
-  const handleDelete = (id: number) => {
-    setFoods((prev) => prev.filter((food) => food.id !== id));
-  };
+  const handleDelete = async (id: number) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/foodrecord/deleteFoodRecord/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-  const handleAddFood = (newFood: Food) => {
-    setFoods((prev) => [...prev, newFood]);
+      if (!response.ok) {
+        throw new Error("Error al eliminar el alimento");
+      }
+
+      setFoods((prev) => prev.filter((food) => food.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar alimento:", error);
+    }
+    setFoods((prev) => prev.filter((food) => food.id !== id));
   };
 
   const handleTabClick = (tab: string) => {
@@ -130,9 +151,14 @@ function RegisteredFoodTable() {
             )}
           </div>
 
-          <Button small onClick={handleAddClick}>
-            Añadir Elemento +
-          </Button>
+          <div className="flex items-center justify-between">
+            <Button small onClick={handleAddClick}>
+              Añadir Elemento +
+            </Button>
+            <button onClick={onReload}>
+              <Image src={recharge} alt="" />
+            </button>
+          </div>
         </div>
       </div>
 
