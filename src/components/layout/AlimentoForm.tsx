@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "../ui/Button";
 import H3 from "../ui/H3";
 import Input from "../ui/Input";
+import { toast } from "react-toastify";
 
 function AlimentoForm() {
   const [name, setName] = useState("");
@@ -63,8 +64,10 @@ function AlimentoForm() {
       setFats("");
       setErrorMessage("");
 
+      toast.success("Se ha creado un nuevo alimento.");
       console.log("Comida guardada correctamente", data);
     } catch (error) {
+      toast.error("ha ocurrido un error al crear un alimento nuevo.");
       setErrorMessage("Error en la petición. Inténtalo de nuevo");
     }
   };

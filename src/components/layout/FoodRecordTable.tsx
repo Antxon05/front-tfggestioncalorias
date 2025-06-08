@@ -5,6 +5,7 @@ import Button from "../ui/Button";
 import papelera from "../../assets/papelera-de-reciclaje.png";
 import recharge from "../../assets/cargando-flechas.png";
 import ModalAddFood from "../../pages/ModalAddFood";
+import { toast } from "react-toastify";
 
 const tabs = ["Desayuno", "Comida", "Aperitivo", "Cena"];
 type Tab = (typeof tabs)[number];
@@ -90,8 +91,10 @@ function RegisteredFoodTable({ onReload }: Props) {
         throw new Error("Error al eliminar el alimento");
       }
 
+      toast.success("Se ha eliminado el registro correctamente.");
       setFoods((prev) => prev.filter((food) => food.id !== id));
     } catch (error) {
+      toast.error("Ha ocurrido un error al eliminar el registro");
       console.error("Error al eliminar alimento:", error);
     }
     setFoods((prev) => prev.filter((food) => food.id !== id));

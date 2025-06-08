@@ -5,6 +5,7 @@ import añadir from "../../assets/anadir.png";
 import { useEffect, useState } from "react";
 import recharge from "../../assets/cargando-flechas.png";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 function getUserIdFromToken(): number | null {
   const token = localStorage.getItem("token");
@@ -75,7 +76,7 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
     }
   };
 
-  //Consulta para eliminar la comida
+  //Consulta para eliminar alimento de la base de datos
   const deleteFood = async (id: number) => {
     if (!window.confirm("¿Seguro que quieres eliminar este alimento?")) {
       return;
@@ -98,9 +99,13 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
       );
 
       if (!response.ok) {
+        toast.error("Error al eliminar el alimento de la base de datos.");
         throw new Error("No se pudo eliminar el alimento");
       }
 
+      toast.success(
+        "Se ha eliminado el alimento correctamente de la base de datos."
+      );
       setFoods((prevFoods) => prevFoods.filter((food) => food.id !== id));
       setError(null);
     } catch (err: any) {
@@ -142,10 +147,11 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
       );
 
       if (!response.ok) {
+        toast.error("Error al registrar el alimento.");
         throw new Error("Error al guardar el alimento en el registro.");
       }
 
-      alert("Alimento añadido correctamente.");
+      toast.success("Se ha registrado el alimento correctamente.");
 
       if (onAdded) {
         onAdded();
