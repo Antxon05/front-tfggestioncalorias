@@ -50,13 +50,6 @@ function Navbar() {
             Cerrar Sesión
           </button>
         </Link>
-        <Link
-          to="/edit-profile"
-          className="hover:scale-110 transition duration-300 mr-10 flex flex-col items-center"
-        >
-          <img src={perfilIcon} alt="" className="w-7 h-7 mb-1" />
-          <p>Editar perfil</p>
-        </Link>
       </header>
     );
   }

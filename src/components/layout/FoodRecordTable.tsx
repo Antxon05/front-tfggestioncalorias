@@ -67,7 +67,6 @@ function RegisteredFoodTable() {
   };
 
   const handleAddClick = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
 
   const handleDelete = (id: number) => {
     setFoods((prev) => prev.filter((food) => food.id !== id));
