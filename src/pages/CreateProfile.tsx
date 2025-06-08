@@ -1,6 +1,6 @@
 import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
-import CreateProfileForm from "../components/layout/CreateProfileForm";
-import Navbar from "../components/layout/Navbar";
+import CreateProfileForm from "../components/form/CreateProfileForm";
+import Navbar from "../components/navbar/Navbar";
 
 function CreateProfile() {
   return (

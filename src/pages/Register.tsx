@@ -1,6 +1,6 @@
 import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
-import Navbar from "../components/layout/Navbar";
-import RegistryForm from "../components/layout/RegistryForm";
+import Navbar from "../components/navbar/Navbar";
+import RegistryForm from "../components/form/RegistryForm";
 
 function Register() {
   return (

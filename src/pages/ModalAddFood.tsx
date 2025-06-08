@@ -1,7 +1,7 @@
 import Image from "../components/ui/Image";
 import volver from "../assets/volver.png";
-import AlimentoForm from "../components/layout/AlimentoForm";
-import ListaAlimentos from "../components/layout/ListaAlimentos";
+import AlimentoForm from "../components/form/AlimentoForm";
+import ListaAlimentos from "../components/list/ListaAlimentos";
 
 type Props = {
   onClose: () => void;

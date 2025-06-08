@@ -1,0 +1,170 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
+
+function EditProfileForm() {
+  const [formData, setFormData] = useState({
+    id: 0,
+    name: "",
+    email: "",
+    age: "",
+    height: "",
+    weight: "",
+    genre: "",
+    goal: "",
+    phisicalActivity: "",
+  });
+
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    const edadNum = parseInt(formData.age);
+    const alturaNum = parseInt(formData.height);
+    const pesoNum = parseFloat(formData.weight);
+
+    if (
+      !formData.name ||
+      isNaN(edadNum) ||
+      isNaN(alturaNum) ||
+      isNaN(pesoNum)
+    ) {
+      setError("Rellena todos los campos correctamente.");
+      return;
+    }
+
+    try {
+      // await updateUserInfo({ ...formData, age: edadNum, height: alturaNum, weight: pesoNum });
+      navigate("/dashboard"); // o a donde quieras redirigir
+    } catch (err: any) {
+      setError(err.message || "Error al actualizar el perfil");
+    }
+  };
+
+  const handleBack = () => {
+    navigate("/dashboard");
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="bg-green-50 p-6 rounded-xl shadow-md w-full max-w-2xl mb-10"
+    >
+      <h2 className="text-2xl font-bold mb-6 text-green-700 text-center">
+        Editar Perfil
+      </h2>
+
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        <Input
+          type="text"
+          label="Nombre"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Tu nombre"
+        />
+        <Input
+          label="Edad"
+          name="age"
+          type="number"
+          placeholder="Tu edad"
+          min="14"
+          max="100"
+          value={formData.age}
+          onChange={handleChange}
+        />
+        <Input
+          label="Altura (cm)"
+          placeholder="Tu altura"
+          name="height"
+          type="number"
+          value={formData.height}
+          onChange={handleChange}
+        />
+        <Input
+          label="Peso (kg)"
+          placeholder="Tu peso"
+          name="weight"
+          type="number"
+          value={formData.weight}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="mb-1 font-semibold">Género</label>
+        <select
+          name="genre"
+          value={formData.genre}
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+        >
+          <option value="">Selecciona tu género</option>
+          <option value="HOMBRE">Hombre</option>
+          <option value="MUJER">Mujer</option>
+        </select>
+      </div>
+
+      <div className="flex mt-15 gap-x-6">
+        <div className="mb-4">
+          <label className="mb-1 font-semibold">Objetivo</label>
+          <select
+            name="goal"
+            value={formData.goal}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+          >
+            <option value="">Selecciona tu objetivo</option>
+            <option value="AUMENTAR">Ganar masa muscular</option>
+            <option value="PERDER">Perder grasa</option>
+            <option value="MANTENER">Mantener peso corporal</option>
+          </select>
+        </div>
+
+        <div className="mb-6">
+          <label className="mb-1 font-semibold">Actividad física</label>
+          <select
+            name="phisicalActivity"
+            value={formData.phisicalActivity}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+          >
+            <option value="">Selecciona tu actividad</option>
+            <option value="SEDENTARIO">Sedentario</option>
+            <option value="LIGERO">Ligero</option>
+            <option value="MODERADO">Moderado</option>
+            <option value="ACTIVO">Activo</option>
+            <option value="MUY_ACTIVO">Muy Activo</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="flex justify-center h-20 px-4">
+        <Button
+          onClick={handleBack}
+          type="button"
+          className="bg-yellow-300 hover:bg-yellow-400"
+        >
+          Volver
+        </Button>
+        <Button type="submit">Guardar</Button>
+      </div>
+      {error && (
+        <p className="text-red-600 text-center mt-4 font-semibold">{error}</p>
+      )}
+    </form>
+  );
+}
+
+export default EditProfileForm;

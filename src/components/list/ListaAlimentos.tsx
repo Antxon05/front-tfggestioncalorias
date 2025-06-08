@@ -1,5 +1,5 @@
 import H3 from "../ui/H3";
-import Image from "../../components/ui/Image";
+import Image from "../ui/Image";
 import papelera from "../../assets/papelera-de-reciclaje.png";
 import añadir from "../../assets/anadir.png";
 import { useEffect, useState } from "react";

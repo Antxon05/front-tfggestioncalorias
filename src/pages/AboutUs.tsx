@@ -1,4 +1,4 @@
-import Navbar from "../components/layout/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import H3 from "../components/ui/H3";
 import { motion } from "framer-motion";
 

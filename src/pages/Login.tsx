@@ -1,6 +1,6 @@
 import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
-import LoginForm from "../components/layout/LoginForm";
-import Navbar from "../components/layout/Navbar";
+import LoginForm from "../components/form/LoginForm";
+import Navbar from "../components/navbar/Navbar";
 
 function Login() {
   return (

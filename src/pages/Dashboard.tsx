@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/layout/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import fetchUserData from "../services/UserService";
 import InfoCard from "../components/ui/InfoCard";
-import RegisteredFoodTable from "../components/layout/FoodRecordTable";
+import RegisteredFoodTable from "../components/table/FoodRecordTable";
 import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
 
 function Dashboard() {

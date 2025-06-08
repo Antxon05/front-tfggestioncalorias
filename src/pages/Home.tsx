@@ -1,6 +1,6 @@
 import logoremove from "../assets/logo-nutridiary-removebg-preview.png";
 import Button from "../components/ui/Button";
-import Navbar from "../components/layout/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useEffect } from "react";

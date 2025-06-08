@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/layout/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import NextButton from "../components/ui/NextButton";
 import { useEffect, useState } from "react";
 import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
