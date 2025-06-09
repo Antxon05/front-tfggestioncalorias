@@ -5,6 +5,7 @@ import Button from "../ui/Button";
 import { toast } from "react-toastify";
 
 function EditProfileForm() {
+  //Inicializamos el formulario
   const [formData, setFormData] = useState({
     id: 0,
     name: "",
@@ -25,6 +26,7 @@ function EditProfileForm() {
     fetchUserInfo();
   }, []);
 
+  //Obtiene la información del usuario según el token
   const fetchUserInfo = async () => {
     const token = localStorage.getItem("token");
 
@@ -70,6 +72,7 @@ function EditProfileForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  //Función para actualizar usuario
   const updateUserInfo = async () => {
     const token = localStorage.getItem("token");
 
@@ -97,6 +100,7 @@ function EditProfileForm() {
     return await response.text();
   };
 
+  //Función cuando le demos al botón "Guardar"
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -115,6 +119,21 @@ function EditProfileForm() {
       return;
     }
 
+    if (
+      isNaN(edadNum) ||
+      edadNum < 14 ||
+      edadNum > 120 ||
+      isNaN(pesoNum) ||
+      pesoNum < 30 ||
+      pesoNum > 300 ||
+      isNaN(alturaNum) ||
+      alturaNum < 100 ||
+      alturaNum > 250
+    ) {
+      setError("Introduce valores válidos");
+      return;
+    }
+
     try {
       await updateUserInfo();
       toast.success("Se ha actualizado correctamente el perfil");
@@ -123,6 +142,7 @@ function EditProfileForm() {
     }
   };
 
+  //Función cuando le demos al botón de "Volver"
   const handleBack = () => {
     navigate("/dashboard");
   };
