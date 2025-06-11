@@ -2,6 +2,7 @@ import Navbar from "../components/navbar/Navbar";
 import H3 from "../components/ui/H3";
 import { motion } from "framer-motion";
 
+//Página informativa en texto plano
 function AboutUs() {
   return (
     <>

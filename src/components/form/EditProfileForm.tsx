@@ -44,6 +44,7 @@ function EditProfileForm() {
 
       const data = await response.json();
 
+      //Asignamos a la variable del formulario los datos obtenidos del fetch
       setFormData({
         ...data,
         age: data.age.toString(),
@@ -65,6 +66,7 @@ function EditProfileForm() {
     return <p className="text-center">Cargando datos...</p>;
   }
 
+  //Maneja los cambios de formularios de manera genérica
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -76,6 +78,7 @@ function EditProfileForm() {
   const updateUserInfo = async () => {
     const token = localStorage.getItem("token");
 
+    //Guardamos los datos nuevos que vamos a cambiar
     const payload = {
       ...formData,
       age: parseInt(formData.age),
@@ -119,6 +122,7 @@ function EditProfileForm() {
       return;
     }
 
+    //Comprobación de rangos de numeros
     if (
       isNaN(edadNum) ||
       edadNum < 14 ||

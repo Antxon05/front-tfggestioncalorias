@@ -28,6 +28,7 @@ function RegistryForm() {
     e.preventDefault();
     setError("");
 
+    //Comprobaciones de valores
     if (!name || !email || !password || !confirmPassword) {
       setError("Por favor, rellena todos los campos.");
       return;
@@ -43,6 +44,7 @@ function RegistryForm() {
       return;
     }
 
+    //LLamamos al servicio a parte y le pasamos los datos de los state
     try {
       const formData = { name, email, password };
       sessionStorage.setItem("parteRegistro", JSON.stringify(formData));

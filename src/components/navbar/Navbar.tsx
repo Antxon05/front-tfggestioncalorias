@@ -1,12 +1,12 @@
 import logoremove from "../../assets/logo-nutridiary-removebg-preview.png";
 import perfilIcon from "../../assets/editar.png";
 import { Link, useLocation } from "react-router-dom";
-import Button from "../ui/Button";
 
 function Navbar() {
   const location = useLocation();
   const currentPath = location.pathname;
 
+  //Si estamos en home, muestra ese resultado
   if (currentPath === "/") {
     return (
       <header className="w-full p-5 flex bg-green-700 shadow-md top-0 left-0 z-50">
@@ -20,13 +20,13 @@ function Navbar() {
     );
   }
 
+  //Si estamos en about, login, register, create-profile o target-calories muestra ese resultado
   if (
     [
       "/about",
       "/login",
       "/register",
       "/register/create-profile",
-      ,
       "/register/create-profile/target-calories",
     ].includes(currentPath)
   ) {
@@ -42,6 +42,7 @@ function Navbar() {
     );
   }
 
+  //Si estamos en dashboard, muestra ese resultado
   if (currentPath == "/dashboard") {
     return (
       <header className="flex justify-end pt-5 items-center w-full p-0 top-0 left-0 z-50">

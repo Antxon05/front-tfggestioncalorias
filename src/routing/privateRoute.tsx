@@ -8,6 +8,7 @@ type PrivateRouteProps = {
   requireRegistryCompleted?: boolean;
 };
 
+//Define las rutas que deben de contener un token en localStorage para acceder, si no tienen vuelve al home
 function PrivateRoute({
   children,
   requireToken = true,

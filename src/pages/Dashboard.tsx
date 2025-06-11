@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/navbar/Navbar";
-import fetchUserData from "../services/UserService";
 import InfoCard from "../components/ui/InfoCard";
 import RegisteredFoodTable from "../components/table/FoodRecordTable";
 import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
 
+//Página principal
 function Dashboard() {
   const [dailySummary, setDailySummary] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -12,6 +12,7 @@ function Dashboard() {
   const fetchDailySummary = async () => {
     const token = localStorage.getItem("token");
 
+    //Obtenemos información del usuario basado en el día actual (pasamos valores o función a otros componentes)
     try {
       const response = await fetch(
         `http://localhost:8080/api/dailysummary/today`,

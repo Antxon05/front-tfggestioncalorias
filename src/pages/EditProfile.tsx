@@ -1,6 +1,7 @@
 import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
 import EditProfileForm from "../components/form/EditProfileForm";
 
+//Página de edición de perfil
 function EditProfile() {
   return (
     <AnimatedPageWrapper>

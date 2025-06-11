@@ -10,6 +10,7 @@ type UsuarioCompleto = {
   goal: string;
 };
 
+//Fetch para realizar un registro, pasadole los datos de UsuarioCompleto
 async function register(usuario: UsuarioCompleto) {
   const response = await fetch("http://localhost:8080/api/auth/register", {
     method: "POST",

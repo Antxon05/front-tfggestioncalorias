@@ -1,5 +1,3 @@
-import type { ButtonHTMLAttributes } from "react";
-
 function NextButton({ onClick }: { onClick?: () => void }) {
   return (
     <>

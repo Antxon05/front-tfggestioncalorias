@@ -4,10 +4,12 @@ import NextButton from "../components/ui/NextButton";
 import { useEffect, useState } from "react";
 import AnimatedPageWrapper from "../animations/AnimatedPageWrapper";
 
+//Página que muestra las calorias objetivo después de insertar tus datos
 function TargetCalories() {
   const navigate = useNavigate();
   const [calories, setCalories] = useState<number | null>(null);
 
+  //Obtiene el dailySummary creado, para obtener el goalCalories
   useEffect(() => {
     const fetchCalories = async () => {
       const token = sessionStorage.getItem("token");

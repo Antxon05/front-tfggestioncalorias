@@ -16,6 +16,7 @@ function AlimentoForm() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    //Comprueba de que no esten vacíos
     if (!name.trim() || !calories || !protein || !carbs || !fats) {
       setErrorMessage("No se puede dejar ningún valor vacío");
       return;
@@ -30,6 +31,7 @@ function AlimentoForm() {
       return;
     }
 
+    //Guardamos los valores del formulario en esta variable
     const newFood = {
       name,
       calories: Number(calories),
@@ -40,6 +42,7 @@ function AlimentoForm() {
 
     console.log(newFood);
 
+    //GUARDA un alimento nuevo
     try {
       const response = await fetch("http://localhost:8080/api/food/saveFood", {
         method: "POST",
@@ -57,6 +60,7 @@ function AlimentoForm() {
         return;
       }
 
+      //Reiniciamos valores a 0
       setName("");
       setCalories("");
       setProtein("");

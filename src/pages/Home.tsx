@@ -20,6 +20,7 @@ function Home() {
       <AnimatedPageWrapper>
         <div className="min-h-screen flex flex-wrap justify-evenly items-center p-4 text-green-700 font-poppins ">
           <div>
+            {/* Animación del texto de "bienvenid@"*/}
             <motion.h1
               className="flex text-4xl font-bold md:mb-25 md:text-7xl mt-10 gap-1"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -35,6 +36,7 @@ function Home() {
               }}
             >
               {heading.split("").map((char, index) => (
+                //Imprime en bucle cada carácter
                 <motion.span key={index} className="inline-block">
                   {char}
                 </motion.span>

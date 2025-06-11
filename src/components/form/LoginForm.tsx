@@ -11,6 +11,7 @@ function LoginForm() {
 
   const navigate = useNavigate();
 
+  //Cuando le damos a "login"
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -20,7 +21,9 @@ function LoginForm() {
       return;
     }
 
+    //Hacemos fetch con los datos obtenidos en los state
     try {
+      //Lamamos al servicio que esta aparte
       const data = await login(email, password);
       console.log("Respuesta del servidor: ", data);
       localStorage.setItem("token", data.token);

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import register from "../../services/RegisterService";
 
 function CreateProfileForm() {
+  //Guardamos los datos del formulario en la variable de formData
   const [formData, setFormData] = useState({
     edad: "",
     genero: "",
@@ -31,6 +32,7 @@ function CreateProfileForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  //Función para enviar el formulario
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -51,6 +53,7 @@ function CreateProfileForm() {
       return;
     }
 
+    //Comprobamos de que edad, peso y altura este dentro de los rangos
     if (
       isNaN(edadNum) ||
       edadNum < 14 ||
@@ -66,6 +69,7 @@ function CreateProfileForm() {
       return;
     }
 
+    //Obtenemos los datos que teniamos guardados en el sessionStorage(de la anterior pantalla)
     const parteRegistro = sessionStorage.getItem("parteRegistro");
     if (!parteRegistro) {
       setError("Faltan los datos del registro.");
@@ -74,6 +78,7 @@ function CreateProfileForm() {
 
     const { name, email, password } = JSON.parse(parteRegistro);
 
+    //Guardamos todos los datos obtenidos
     const usuarioCompleto = {
       name,
       email,
@@ -87,6 +92,7 @@ function CreateProfileForm() {
     };
 
     try {
+      //Llama al fetch creado dentro de un servicio aparte
       const response = await register(usuarioCompleto);
 
       sessionStorage.setItem("token", response.token);
@@ -98,6 +104,7 @@ function CreateProfileForm() {
     }
   };
 
+  //Si le damos a "VOLVER" fuelve a la página anterior
   const handleBack = () => {
     sessionStorage.setItem("formPerfil", JSON.stringify(formData));
     navigate("/register");

@@ -9,6 +9,7 @@ type Props = {
   dayMoment: "DESAYUNO" | "COMIDA" | "APERITIVO" | "CENA";
 };
 
+//El modal que se abre en FoodRecordTable (NO es una página nueva)
 function ModalAddFood({ onClose, dayMoment, onAdded }: Props) {
   const handleFoodAdded = () => {
     onAdded();

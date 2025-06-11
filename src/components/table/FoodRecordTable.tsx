@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 const tabs = ["Desayuno", "Comida", "Aperitivo", "Cena"];
 type Tab = (typeof tabs)[number];
 
+//Definimos momentos del día
 const dayMomentMap: Record<Tab, "DESAYUNO" | "COMIDA" | "APERITIVO" | "CENA"> =
   {
     Desayuno: "DESAYUNO",
@@ -18,6 +19,7 @@ const dayMomentMap: Record<Tab, "DESAYUNO" | "COMIDA" | "APERITIVO" | "CENA"> =
     Cena: "CENA",
   };
 
+//Estructura de datos que mostraremos en la tabla
 export type Food = {
   id: number;
   name: string;
@@ -34,6 +36,7 @@ function RegisteredFoodTable({ onReload }: Props) {
   const [showModal, setShowModal] = useState(false);
   const [foods, setFoods] = useState<Food[]>([]);
 
+  //Muestra la info de la pestaña "Desayuno" --> La default
   useEffect(() => {
     fetchFoodRecords(activeTab);
   }, [activeTab]);
@@ -42,6 +45,7 @@ function RegisteredFoodTable({ onReload }: Props) {
     const token = localStorage.getItem("token");
     const dayMoment = dayMomentMap[tab];
 
+    //Obtenemos los alimentos según el momento del día
     try {
       const response = await fetch(
         `http://localhost:8080/api/foodrecord?dayMoment=${dayMoment}`,
@@ -72,8 +76,10 @@ function RegisteredFoodTable({ onReload }: Props) {
     }
   };
 
+  //Cuando le damos a Añadir Alimento muestra el modal
   const handleAddClick = () => setShowModal(true);
 
+  //Si le damos a eliminar registro
   const handleDelete = async (id: number) => {
     const token = localStorage.getItem("token");
     try {
@@ -92,6 +98,8 @@ function RegisteredFoodTable({ onReload }: Props) {
       }
 
       toast.success("Se ha eliminado el registro correctamente.");
+
+      //Borra también el registro de la lista sin tener que actualizar la página
       setFoods((prev) => prev.filter((food) => food.id !== id));
     } catch (error) {
       toast.error("Ha ocurrido un error al eliminar el registro");
@@ -100,10 +108,12 @@ function RegisteredFoodTable({ onReload }: Props) {
     setFoods((prev) => prev.filter((food) => food.id !== id));
   };
 
+  //Cambio de pestaña
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
+  //Botón cuando añadimos un nuevo foodRecord
   const handleFoodAdded = () => {
     fetchFoodRecords(activeTab);
   };
@@ -113,6 +123,7 @@ function RegisteredFoodTable({ onReload }: Props) {
       <div className="w-full">
         <div className="flex">
           {tabs.map((tab) => (
+            //Imprimimos bucle de tabs (momentos del día)
             <button
               key={tab}
               onClick={() => handleTabClick(tab)}
@@ -130,6 +141,7 @@ function RegisteredFoodTable({ onReload }: Props) {
             {foods.length === 0 ? (
               <p className="text-center text-gray-500">No hay alimentos</p>
             ) : (
+              //Imprimimos foods records en caso de que haya
               foods.map(({ id, name, calories, weight }) => (
                 <div
                   key={id}
@@ -166,6 +178,7 @@ function RegisteredFoodTable({ onReload }: Props) {
       </div>
 
       {showModal && (
+        //Si le damos al botón nos aparece el modal creado
         <ModalAddFood
           onClose={() => setShowModal(false)}
           onAdded={handleFoodAdded}

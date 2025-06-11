@@ -7,6 +7,7 @@ import recharge from "../../assets/cargando-flechas.png";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 
+//Función para obtener el id de usuario por token (para comprobar por createdBy_userId de la base de datos de food)
 function getUserIdFromToken(): number | null {
   const token = localStorage.getItem("token");
   if (!token) return null;
@@ -19,6 +20,7 @@ function getUserIdFromToken(): number | null {
   }
 }
 
+//Creamos una estructura de datos "Food", guardamos los datos alli
 type Food = {
   id: number;
   name: string;
@@ -29,6 +31,7 @@ type Food = {
   createdByUser?: number;
 };
 
+//Asignamos los momentos del día
 type Props = {
   dayMoment: "DESAYUNO" | "COMIDA" | "APERITIVO" | "CENA";
   onAdded: () => void;
@@ -41,12 +44,13 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
   const userId = getUserIdFromToken();
   const token = localStorage.getItem("token");
 
+  //Cuando le damos al emoticono de refresh
   const refrescList = () => {
     setSearch("");
     fetchFoods("");
   };
 
-  //Consulta para obtener comidas a la base de datos
+  //Consulta para obtener alimentos a la base de datos (Si tiene query busca por nombre, sino busca todos)
   const fetchFoods = async (query = "") => {
     if (!token) {
       setError("No estás autenticado");
@@ -69,6 +73,7 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
       }
 
       const data = await response.json();
+      //Añadimos los datos a la estructura de datos "Food"
       setFoods(data);
       setError(null);
     } catch (err: any) {
@@ -161,6 +166,7 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
     }
   };
 
+  //Hacemos fetch de la búsqueda cada 400 milisegundos
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       fetchFoods(search);
@@ -216,6 +222,7 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
         {foods.length === 0 && !error ? (
           <p className="text-center text-gray-500">No hay alimentos</p>
         ) : (
+          //Imprime un bucle de todas las comidas
           foods.map((food) => (
             <li key={food.id} className="flex justify-between gap-x-6 py-5">
               <div className="min-w-0 flex-auto">
@@ -251,6 +258,7 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
               </div>
               <div className="ml-auto flex gap-2">
                 {food.createdByUser === userId && (
+                  //Si esta creado por el usuario que ha entrado muestra la opción de eliminar
                   <button onClick={() => deleteFood(food.id)}>
                     <Image src={papelera} alt="papelera" />
                   </button>

@@ -12,10 +12,12 @@ import CreateProfile from "./pages/CreateProfile";
 import TargetCalories from "./pages/TargetCalories";
 import EditProfile from "./pages/EditProfile";
 
+//Utilizamos App para definir las rutas y como layout principal
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-100 via-green-200 to-green-300 font-poppins">
       <BrowserRouter>
+        {/* ToasContainer permite mostrar las alertas */}
         <ToastContainer position="bottom-center" autoClose={3000} />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -30,6 +32,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          {/* Las rutas protegidas las manega el componente de PrivateRoute */}
           <Route
             path="/edit-profile"
             element={
