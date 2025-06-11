@@ -41,7 +41,14 @@ function Dashboard() {
     fetchDailySummary();
   }, []);
 
-  if (loading) return <p>Cargando datos...</p>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-lg font-semibold text-green-700">
+          Cargando datos...
+        </p>
+      </div>
+    );
 
   return (
     <>

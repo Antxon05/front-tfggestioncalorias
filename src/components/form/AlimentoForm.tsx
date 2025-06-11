@@ -78,11 +78,10 @@ function AlimentoForm() {
   return (
     <div className="mt-5 border border-gray-300 p-6">
       <H3>Crear Alimento (Basado en 100gm)</H3>
-      <form onSubmit={handleSubmit}>
+      <form className="" onSubmit={handleSubmit}>
         <div className="flex flex-col items-center">
-          <div className="p-5 max-w-md">
+          <div className="flex p-5 max-w-md">
             <Input
-              className="w-100"
               name="name"
               type="text"
               value={name}
@@ -90,7 +89,7 @@ function AlimentoForm() {
               placeholder="Nombre alimento..."
             />
           </div>
-          <div className="flex gap-4 p-2">
+          <div className="flex flex-wrap gap-4 p-2">
             <div className="flex flex-col items-center">
               <p className="mb-1 font-medium">Kcal:</p>
               <Input

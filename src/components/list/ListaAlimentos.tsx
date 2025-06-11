@@ -229,7 +229,7 @@ function ListaAlimentos({ dayMoment, onAdded }: Props) {
                 <p className="text-sm font-semibold text-gray-900">
                   {food.name}
                 </p>
-                <div className="flex justify-between mr-20">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1 mt-2">
                   <div>
                     <p className="mt-1 truncate text-xs/5 text-gray-500">
                       Calorías

@@ -195,7 +195,7 @@ function CreateProfileForm() {
           </select>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex flex-wrap justify-center">
           <Button
             type="button"
             className="bg-yellow-300 hover:bg-yellow-400"

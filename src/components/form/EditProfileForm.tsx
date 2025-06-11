@@ -154,7 +154,7 @@ function EditProfileForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-green-50 p-6 rounded-xl shadow-md w-full max-w-2xl mb-10"
+      className="bg-green-50 p-6 rounded-xl shadow-md w-full max-w-2xl mt-10 mb-10"
     >
       <h2 className="text-2xl font-bold mb-6 text-green-700 text-center">
         Editar Perfil
@@ -211,8 +211,8 @@ function EditProfileForm() {
         </select>
       </div>
 
-      <div className="flex mt-15 gap-x-6">
-        <div className="mb-4">
+      <div className="flex flex-wrap mt-15 gap-x-6">
+        <div className="w-full sm:w-[48%] mb-4">
           <label className="mb-1 font-semibold">Objetivo</label>
           <select
             name="goal"
@@ -227,7 +227,7 @@ function EditProfileForm() {
           </select>
         </div>
 
-        <div className="mb-6">
+        <div className="w-full sm:w-[48%] mb-6">
           <label className="mb-1 font-semibold">Actividad física</label>
           <select
             name="phisicalActivity"
@@ -245,7 +245,7 @@ function EditProfileForm() {
         </div>
       </div>
 
-      <div className="flex justify-center h-20 px-4">
+      <div className="flex flex-wrap justify-center px-4">
         <Button
           onClick={handleBack}
           type="button"

@@ -121,7 +121,7 @@ function RegisteredFoodTable({ onReload }: Props) {
   return (
     <>
       <div className="w-full">
-        <div className="flex">
+        <div className="flex flex-wrap gap-2">
           {tabs.map((tab) => (
             //Imprimimos bucle de tabs (momentos del día)
             <button
@@ -129,7 +129,7 @@ function RegisteredFoodTable({ onReload }: Props) {
               onClick={() => handleTabClick(tab)}
               className={`cursor-pointer hover:bg-green-700 hover:text-white flex-1 px-4 py-2 font-semibold rounded-t-xl transition-colors duration-300 ${
                 activeTab === tab ? "bg-green-700 text-white" : "bg-white"
-              }`}
+              } rounded-xl sm:rounded-t-xl sm:rounded-b-none`}
             >
               {tab}
             </button>
