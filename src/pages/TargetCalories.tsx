@@ -16,7 +16,7 @@ function TargetCalories() {
 
       try {
         const response = await fetch(
-          "http://localhost:8080/api/user/targetCalories",
+          "http://localhost:8080/api/dailysummary/today",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ function TargetCalories() {
         }
 
         const data = await response.json();
-        setCalories(data);
+        setCalories(data.goalCalories);
       } catch (error) {
         console.error("Error al obtener las calorías:", error);
       }
