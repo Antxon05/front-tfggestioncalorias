@@ -168,7 +168,7 @@ function RegisteredFoodTable({ onReload }: Props) {
 
           <div className="flex items-center justify-between">
             <Button small onClick={handleAddClick}>
-              Añadir Elemento +
+              Añadir Alimento +
             </Button>
             <button onClick={onReload}>
               <Image src={recharge} alt="" />
